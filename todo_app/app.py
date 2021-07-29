@@ -14,7 +14,7 @@ def index():
 
 
 @app.route('/addItem', methods=['GET'])
-def add_item():
+def add_item_page():
     return render_template('itemForm.html')
 
 @app.route('/addItem', methods=['POST'])
