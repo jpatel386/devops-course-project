@@ -50,3 +50,14 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+
+
+JAI Setup Notes:
+
+You will need to copy the .env.template into .env 
+You will need python-dotenv to make this work
+
+You will need to create your own trello account and get the key and token - these should be added to the .env file as 
+trello_key and trello_token
