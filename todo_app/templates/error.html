@@ -10,13 +10,8 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-	{% for item in items %}
-               	<li>{{ item.title }}</li>
-	{% endfor %}	
+      <h3>Error loading items</h3>
       </ul>
-      <button class="btn btn-primary" onclick="window.location.href='/addItem'">Add a new item</button>
     </div>
   </div>
 {% endblock %}

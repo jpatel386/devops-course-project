@@ -61,3 +61,5 @@ You will need python-dotenv to make this work
 
 You will need to create your own trello account and get the key and token - these should be added to the .env file as 
 trello_key and trello_token
+
+you will also need to add your devops board id in .env as trello_board_id

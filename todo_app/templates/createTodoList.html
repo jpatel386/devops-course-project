@@ -9,14 +9,11 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-	{% for item in items %}
-               	<li>{{ item.title }}</li>
-	{% endfor %}	
-      </ul>
-      <button class="btn btn-primary" onclick="window.location.href='/addItem'">Add a new item</button>
+      <h2>No Todo List Found</h2>
+      <p>Please click the button below to create the list on the board specified in your config.</p>
+    
+      <!-- Button to go to add item page -->
+      <button class="btn btn-primary" onclick="window.location.href='/createTodoList'">Create Todo List</button>
     </div>
   </div>
 {% endblock %}
