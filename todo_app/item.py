@@ -1,6 +1,6 @@
 class Item:
 
-    def __init__(self, id, title):
+    def __init__(self, id, title, started):
         id = id
-        status = "Not started"
+        started = False
         title = title

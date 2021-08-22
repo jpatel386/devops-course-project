@@ -1,3 +1,4 @@
+from todo_app.item import Item
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.flask_config import Config
 import requests
@@ -39,7 +40,7 @@ def index():
         list_resp = query_trello("GET", list_url, trello_key_params)
         if 200 != list_resp.status_code:
             return render_template('error.html')
-        list_json = json.loads(list_resp.text)
+        list_json = list_resp.json()
         #Check lists for list name matching To Do
         for list in list_json:
             if list['name'] == "To Do":
@@ -54,12 +55,10 @@ def index():
     cards_resp = query_trello("GET", cards_url, trello_key_params)
     if 200 != cards_resp.status_code:
         return render_template('error.html')
-    cards_json = json.loads(cards_resp.text)
+    cards_json = cards_resp.json()
     for card in cards_json:
-        id = card["id"]
-        status = "NOT STARTED"
-        title = card["name"]
-        todo_list.append({'id' : id, 'status' : status, 'title' : title})
+        newItem = Item(card["id"], card['name'], False)
+        todo_list.append(newItem)
     return render_template('index.html', items = todo_list)
 
 @app.route('/addItem', methods=['GET'])
@@ -71,25 +70,33 @@ def add_item():
     item = request.form.get('item') 
     #Add item to list to do
     add_item_url = "https://api.trello.com/1/cards"
+    add_item_query = buildAddItemParams(item)
+    add_item_resp = query_trello("POST", add_item_url, add_item_query)
+    return redirect(url_for('index'))
+
+def buildAddItemParams(item):
     add_item_query = trello_key_params
     add_item_query['idList'] = trello_todo_list_id
     add_item_query['name'] = item
-    add_item_resp = query_trello("POST", add_item_url, trello_key_params)
-    return redirect(url_for('index'))
+    return add_item_query
 
 @app.route('/createTodoList', methods=['GET'])
 def createTodoList():
     new_list_url = "https://api.trello.com/1/lists"
-    new_list_query_params = trello_key_params
-    new_list_query_params['name'] = "To Do"
-    new_list_query_params['idBoard'] = trello_board_id
+    new_list_query_params = buildNewTodoListParams()
     new_list_resp = query_trello("POST", new_list_url, new_list_query_params)
     if 200 != new_list_resp.status_code:
         return render_template('error.html')
     global trello_todo_list_id
-    resp_dict = json.loads(new_list_resp.text)
+    resp_dict = new_list_resp.json()
     trello_todo_list_id = resp_dict['id']
     return redirect(url_for('index'))
+
+def buildNewTodoListParams():
+    new_list_query_params = trello_key_params
+    new_list_query_params['name'] = "To Do"
+    new_list_query_params['idBoard'] = trello_board_id
+    return new_list_query_params
 
 @app.route('/complete_item/<id>', methods=['GET'])
 def complete_item(id):
@@ -104,7 +111,7 @@ def complete_item(id):
         list_resp = query_trello("GET", list_url, trello_key_params)
         if 200 != list_resp.status_code:
             return render_template('error.html')
-        list_json = json.loads(list_resp.text)
+        list_json = list_resp.json()
         for list in list_json:
             if list['name'] == "Done":
                 trello_done_list_id = list['id']
@@ -118,7 +125,7 @@ def complete_item(id):
         new_list_resp = query_trello("POST", new_list_url, new_list_query_params)
         if 200 != new_list_resp.status_code:
             return render_template('error.html')
-        resp_dict = json.loads(new_list_resp.text)
+        resp_dict = new_list_resp.json()
         trello_done_list_id = resp_dict['id']
     
     new_done_url = "https://api.trello.com/1/cards/"+id
