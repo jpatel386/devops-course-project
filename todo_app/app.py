@@ -75,7 +75,7 @@ def add_item():
     return redirect(url_for('index'))
 
 def buildAddItemParams(item):
-    add_item_query = trello_key_params
+    add_item_query = trello_key_params.copy()
     add_item_query['idList'] = trello_todo_list_id
     add_item_query['name'] = item
     return add_item_query
@@ -93,7 +93,7 @@ def createTodoList():
     return redirect(url_for('index'))
 
 def buildNewTodoListParams():
-    new_list_query_params = trello_key_params
+    new_list_query_params = trello_key_params.copy()
     new_list_query_params['name'] = "To Do"
     new_list_query_params['idBoard'] = trello_board_id
     return new_list_query_params
@@ -119,7 +119,7 @@ def complete_item(id):
             
     if not trello_done_list_id:
         new_list_url = "https://api.trello.com/1/lists"
-        new_list_query_params = trello_key_params
+        new_list_query_params = trello_key_params.copy()
         new_list_query_params['name'] = "Done"
         new_list_query_params['idBoard'] = trello_board_id
         new_list_resp = query_trello("POST", new_list_url, new_list_query_params)
@@ -130,7 +130,7 @@ def complete_item(id):
     
     new_done_url = "https://api.trello.com/1/cards/"+id
     print(new_done_url)
-    new_done_query_params = trello_key_params
+    new_done_query_params = trello_key_params.copy()
     new_done_query_params['idList'] = trello_done_list_id
     new_done_query_resp = query_trello("PUT",new_done_url,new_done_query_params)
 
