@@ -10,14 +10,17 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-	{% for item in items %}
-               	<li>{{ item.title }}</li>
-	{% endfor %}	
-      </ul>
+      <h5>To Do</h5>
+      <table class="table">
+        {% for item in items %}
+        <tr>
+          <td>{{ item.title }}</td>
+          <td><button class="btn btn-checked btn-sm" onclick="window.location.href='/complete_item/{{ item.id }}'">Mark as complete</button></td>
+        </tr>
+        {% endfor %}	
+      </table>
+      <br>
+      <a href='/addItem'">Add a new item</a>
     </div>
-    <!-- Button to go to add item page -->
-    <button class="btn btn-primary" onclick="window.location.href='/addItem'">Add a new item</button>
   </div>
 {% endblock %}
