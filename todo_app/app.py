@@ -1,5 +1,6 @@
 from todo_app.item import Item
 from todo_app.trello_client import TrelloClient
+from todo_app.view_model import ViewModel
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.flask_config import Config
 import requests
@@ -18,7 +19,8 @@ def index():
     for card in cards:
             newItem = Item(card["id"], card['name'], False)
             items.append(newItem)
-    return render_template('index.html', items = items)
+    item_view_model = ViewModel(items)
+    return render_template('index.html', view_model = item_view_model)
 
 @app.route('/addItem', methods=['GET'])
 def add_item_page():

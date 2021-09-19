@@ -12,7 +12,7 @@
       <h2>Items</h2>
       <h5>To Do</h5>
       <table class="table">
-        {% for item in items %}
+        {% for item in view_model.items %}
         <tr>
           <td>{{ item.title }}</td>
           <td><button class="btn btn-checked btn-sm" onclick="window.location.href='/complete_item/{{ item.id }}'">Mark as complete</button></td>
