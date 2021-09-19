@@ -8,8 +8,8 @@ class TrelloClient:
     }
 
     def __init__(self, board_Id, trello_Key, trello_Token):
-        self.board_Id = board_Id
-        self.trello_query_params = {
+        self.trello_board_id = board_Id
+        self.trello_key_params = {
             'key' : trello_Key,
             'token' : trello_Token
         }
