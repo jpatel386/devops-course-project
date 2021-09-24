@@ -7,20 +7,48 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <h5>To Do</h5>
-      <table class="table">
-        {% for item in view_model.items %}
-        <tr>
-          <td>{{ item.title }}</td>
-          <td><button class="btn btn-checked btn-sm" onclick="window.location.href='/complete_item/{{ item.id }}'">Mark as complete</button></td>
-        </tr>
-        {% endfor %}	
-      </table>
-      <br>
-      <a href='/addItem'">Add a new item</a>
+  <div class="container">
+    <h2>Items</h2>
+    <br>
+    <a href='/addItem'>Add a new item</a>
+    <p></p>
+    <div class="row">
+      <div class="col-md">
+        <h5>To Do</h5>
+        <hr>
+        <table class="table">
+          {% for item in view_model.todo_items %}
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>Mark as <a href="/doing_item/{{ item.id }}">Doing</a> | <a href="/complete_item/{{ item.id }}">Done</a></td>
+          </tr>
+          {% endfor %}	
+        </table>
+      </div>
+      <div class="col-md">
+        <h5>Doing</h5>
+        <hr>
+        <table class="table">
+          {% for item in view_model.doing_items %}
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>Mark as <a href="/reopen_item/{{ item.id }}">To Do</a> | <a href="/complete_item/{{ item.id }}">Done</a></td>
+          </tr>
+          {% endfor %}	
+        </table>
+      </div>
+      <div class="col-md">
+        <h5>Done</h5>
+        <hr>
+        <table class="table">
+          {% for item in view_model.done_items %}
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>Mark as <a href="/reopen_item/{{ item.id }}">To Do</a> | <a href="/doing_item/{{ item.id }}">Doing</a></td>
+          </tr>
+          {% endfor %}	
+        </table>
+      </div>
     </div>
   </div>
 {% endblock %}

@@ -15,11 +15,28 @@ trello_client = TrelloClient(Config.trello_board_id, Config.trello_key, Config.t
 @app.route('/')
 def index():
     items = []
-    cards = trello_client.getToDoItems()
-    for card in cards:
-            newItem = Item(card["id"], card['name'], False)
-            items.append(newItem)
+    data = trello_client.getItems()
+    todo_data = data['to do']
+    doing_data = data['doing']
+    done_data = data['done']
+
+    for card in todo_data:
+        newItem = Item(card['id'], card['name'], "to do")
+        items.append(newItem)
+    
+    for card in doing_data:
+        newItem = Item(card['id'], card['name'], "doing")
+        items.append(newItem)
+    
+    for card in done_data:
+        newItem = Item(card['id'], card['name'], "done")
+        items.append(newItem)
+        
+    
+
     item_view_model = ViewModel(items)
+
+    print(item_view_model.todo_items)
     return render_template('index.html', view_model = item_view_model)
 
 @app.route('/addItem', methods=['GET'])
@@ -32,15 +49,21 @@ def add_item():
     trello_client.addItem(item)
     return redirect(url_for('index'))
 
-@app.route('/createTodoList', methods=['GET'])
-def createTodoList():
-    trello_client.create_todo_list()
-    return redirect(url_for('index'))
-
 @app.route('/complete_item/<id>', methods=['GET'])
 def complete_item(id):
-    trello_client.completeItemForId(id)
+    trello_client.completeItem(id)
     return redirect(url_for('index'))
+
+@app.route('/reopen_item/<id>', methods=['GET'])
+def reopen_item(id):
+    trello_client.markItemAsOpen(id)
+    return redirect(url_for('index'))
+
+@app.route('/doing_item/<id>', methods=['GET'])
+def in_progress_item(id):
+    trello_client.markItemInProgress(id)
+    return redirect(url_for('index'))
+
     
     
 
