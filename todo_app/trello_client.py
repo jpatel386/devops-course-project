@@ -49,6 +49,7 @@ class TrelloClient:
     def setListIds(self):
         list_url = "https://api.trello.com/1/boards/"+self.trello_board_id+"/lists"
         list_resp = self.query_trello("GET", list_url, self.trello_key_params)
+        print(list_resp)
         if 200 != list_resp.status_code:
             return render_template('error.html')
         list_json = list_resp.json()
@@ -77,17 +78,17 @@ class TrelloClient:
         if not self.trello_doing_list_id:
             self.create_list("To Do")
             if not self.trello_todo_list_id:
-                return render_template('error.html')
+                raise ValueError("No trello_todo_list_id found even after attempt to create")
         
         if not self.trello_doing_list_id:
             self.create_list("Doing")
             if not self.trello_doing_list_id:
-                return render_template('error.html')
+                raise ValueError("No trello_doing_list_id found even after attempt to create")
 
         if not self.trello_done_list_id:
             self.create_list("Done")
             if not self.trello_done_list_id:
-                return render_template('error.html')
+                raise ValueError("No trello_done_list_id found even after attempt to create")
         
         to_do = self.get_cards_for_list(self.trello_todo_list_id)
         doing = self.get_cards_for_list(self.trello_doing_list_id)
@@ -152,4 +153,23 @@ class TrelloClient:
 
         if 200 != done_query_resp.status_code:
             return render_template('error.html')
+
+    def create_trello_board(self, name):
+        new_board_url = "https://api.trello.com/1/boards"
+        new_board_query_params = self.trello_key_params.copy()
+        new_board_query_params['name'] = name
+        new_board_resp = self.query_trello("POST", new_board_url, new_board_query_params)
+        if 200 != new_board_resp.status_code:
+            return render_template('error.html')
+        resp_dict = new_board_resp.json()
+        return resp_dict.id
+
+    def delete_trello_board(self, id):
+        delete_board_url = "https://api.trello.com/1/boards/"+str[id]
+        delete_board_params = self.trello_key_params.copy()
+        delete_board_resp = self.query_trello("DELETE",delete_board_url, delete_board_params)
+        if 200 != delete_board_resp.status_code:
+            return render_template('error.html')
+        resp_dict = delete_board_resp.json()
+
     
