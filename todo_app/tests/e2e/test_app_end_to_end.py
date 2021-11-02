@@ -41,7 +41,7 @@ def app_with_temp_board():
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Safari() as driver:
+    with webdriver.Chrome() as driver:
         driver.maximize_window()
         yield driver
 
@@ -57,17 +57,31 @@ def test_item_journey(driver, app_with_temp_board):
     add_item_link.click()
     driver.implicitly_wait(15)
     text_box = driver.find_element_by_id("item")
-    text_box.sendKeys("test item in e2e testing")
+    text_box.send_keys("test item in e2e testing")
     add_button = driver.find_element_by_id('submit')
     add_button.click()
-    assert driver.getCurrentUrl() == 'localhost:5000'
-
-
-    # assert that the text "test item in e2e testing" appears on the page under table title todo
-    # click on the doing button
-    # assert that it now appears in the doing list
-    # click on the done button
-    # assert that it is now in the done list
-
-
-
+    # Check we were redirected back to home
+    assert driver.current_url == 'http://localhost:5000/'
+    todo_text = driver.find_element_by_xpath("//*[@id='Todo Table']/tbody/tr[1]/td[1]").text
+    assert todo_text == "test item in e2e testing"
+    # Mark as doing now
+    mark_as_doing_link = driver.find_element_by_link_text('Doing')
+    mark_as_doing_link.click()
+    driver.implicitly_wait(15)
+    assert driver.current_url == 'http://localhost:5000/'
+    doing_text = driver.find_element_by_xpath("//*[@id='Doing Table']/tbody/tr[1]/td[1]").text
+    assert doing_text == "test item in e2e testing"
+    # Mark as done now
+    mark_as_done_link = driver.find_element_by_link_text('Done')
+    mark_as_done_link.click()
+    driver.implicitly_wait(15)
+    assert driver.current_url == 'http://localhost:5000/'
+    done_text = driver.find_element_by_xpath("//*[@id='Done Table']/tbody/tr[1]/td[1]").text
+    assert done_text == "test item in e2e testing"
+    # Re-mark as todo
+    mark_as_todo_link = driver.find_element_by_link_text('To Do')
+    mark_as_todo_link.click()
+    driver.implicitly_wait(15)
+    assert driver.current_url == 'http://localhost:5000/'
+    todo_text = driver.find_element_by_xpath("//*[@id='Todo Table']/tbody/tr[1]/td[1]").text
+    assert todo_text == "test item in e2e testing"

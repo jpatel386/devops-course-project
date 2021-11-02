@@ -14,9 +14,11 @@
     <p></p>
     <div class="row">
       <div class="col-md">
-        <h5>To Do</h5>
-        <hr>
-        <table class="table">
+        <table class="table" id="Todo Table">
+          <thead class="thead-light">
+            <th>To Do</th>
+            <th></th>
+          </thead>
           {% for item in view_model.todo_items %}
           <tr>
             <td>{{ item.title }}</td>
@@ -26,9 +28,11 @@
         </table>
       </div>
       <div class="col-md">
-        <h5>Doing</h5>
-        <hr>
-        <table class="table">
+        <table class="table" id="Doing Table">
+          <thead class="thead-light">
+            <th>Doing</th>
+            <th></th>
+          </thead>
           {% for item in view_model.doing_items %}
           <tr>
             <td>{{ item.title }}</td>
@@ -38,9 +42,11 @@
         </table>
       </div>
       <div class="col-md">
-        <h5>Done</h5>
-        <hr>
-        <table class="table">
+        <table class="table" id="Done Table">
+          <thead class="thead-light">
+            <th>Done</th>
+            <th></th>
+          </thead>
           {% for item in view_model.done_items %}
           <tr>
             <td>{{ item.title }}</td>
