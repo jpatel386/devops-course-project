@@ -68,6 +68,6 @@ $ poetry add pytest
 
 Navigate to the todo_app directory, i.e. directly above the tests directory. You can now run the tests by executing:
 ```bash
-$ pytest tests/
+$ poetry run pytest tests/
 ```
 
