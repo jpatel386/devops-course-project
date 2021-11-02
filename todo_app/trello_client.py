@@ -162,10 +162,10 @@ class TrelloClient:
         if 200 != new_board_resp.status_code:
             return render_template('error.html')
         resp_dict = new_board_resp.json()
-        return resp_dict.id
+        return resp_dict['id']
 
     def delete_trello_board(self, id):
-        delete_board_url = "https://api.trello.com/1/boards/"+str[id]
+        delete_board_url = "https://api.trello.com/1/boards/"+str(id)
         delete_board_params = self.trello_key_params.copy()
         delete_board_resp = self.query_trello("DELETE",delete_board_url, delete_board_params)
         if 200 != delete_board_resp.status_code:
