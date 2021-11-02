@@ -121,3 +121,10 @@ env/
 
 ### Vagrant files ###
 .vagrant
+
+
+### TMP ###
+Vagrantfile
+.dockerignore
+Dockerfile
+
