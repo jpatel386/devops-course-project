@@ -36,7 +36,7 @@ class TrelloClient:
         new_list_url = "https://api.trello.com/1/lists"
         new_list_query_params = self.buildNewListParams(listName)
         new_list_resp = self.query_trello("POST", new_list_url, new_list_query_params)
-        if 200 != new_list_resp.status_code:
+        if not new_list_resp.ok:
             return render_template('error.html')
         resp_dict = new_list_resp.json()
         if listName == 'To Do':
@@ -50,7 +50,7 @@ class TrelloClient:
         list_url = "https://api.trello.com/1/boards/"+self.trello_board_id+"/lists"
         list_resp = self.query_trello("GET", list_url, self.trello_key_params)
         print(list_resp)
-        if 200 != list_resp.status_code:
+        if not list_resp.ok:
             return render_template('error.html')
         list_json = list_resp.json()
         #Check lists for list name matching 'To Do', 'Doing' or 'Done'. After we go through one list name, we will check if we have a list id for all of them 
@@ -65,7 +65,7 @@ class TrelloClient:
     def get_cards_for_list(self, listId):
         cards_url = "https://api.trello.com/1/lists/"+listId+"/cards"
         cards_resp = self.query_trello("GET", cards_url, self.trello_key_params)
-        if 200 != cards_resp.status_code:
+        if not cards_resp.ok:
             return render_template('error.html')
         return cards_resp.json()
 
@@ -117,7 +117,7 @@ class TrelloClient:
         reopen_query_params['idList'] = self.trello_todo_list_id
         reopen_query_resp = self.query_trello("PUT",reopen_url,reopen_query_params)
 
-        if 200 != reopen_query_resp.status_code:
+        if not reopen_query_resp.ok:
             return render_template('error.html')
 
     def markItemInProgress(self, id):
@@ -134,7 +134,7 @@ class TrelloClient:
         doing_query_params['idList'] = self.trello_doing_list_id
         doing_query_resp = self.query_trello("PUT",doing_url,doing_query_params)
 
-        if 200 != doing_query_resp.status_code:
+        if not doing_query_resp.ok:
             return render_template('error.html')
 
     def completeItem(self, id):
@@ -151,7 +151,7 @@ class TrelloClient:
         done_query_params['idList'] = self.trello_done_list_id
         done_query_resp = self.query_trello("PUT",done_url,done_query_params)
 
-        if 200 != done_query_resp.status_code:
+        if not done_query_resp.ok:
             return render_template('error.html')
 
     def create_trello_board(self, name):
@@ -159,7 +159,7 @@ class TrelloClient:
         new_board_query_params = self.trello_key_params.copy()
         new_board_query_params['name'] = name
         new_board_resp = self.query_trello("POST", new_board_url, new_board_query_params)
-        if 200 != new_board_resp.status_code:
+        if not new_board_resp.ok:
             return render_template('error.html')
         resp_dict = new_board_resp.json()
         return resp_dict['id']
@@ -168,7 +168,7 @@ class TrelloClient:
         delete_board_url = "https://api.trello.com/1/boards/"+str(id)
         delete_board_params = self.trello_key_params.copy()
         delete_board_resp = self.query_trello("DELETE",delete_board_url, delete_board_params)
-        if 200 != delete_board_resp.status_code:
+        if not delete_board_resp.not:
             return render_template('error.html')
         resp_dict = delete_board_resp.json()
 
