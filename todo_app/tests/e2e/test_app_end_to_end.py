@@ -67,21 +67,18 @@ def test_item_journey(driver, app_with_temp_board):
     # Mark as doing now
     mark_as_doing_link = driver.find_element_by_link_text('Doing')
     mark_as_doing_link.click()
-    driver.implicitly_wait(15)
     assert driver.current_url == 'http://localhost:5000/'
     doing_text = driver.find_element_by_xpath("//*[@id='Doing Table']/tbody/tr[1]/td[1]").text
     assert doing_text == "test item in e2e testing"
     # Mark as done now
     mark_as_done_link = driver.find_element_by_link_text('Done')
     mark_as_done_link.click()
-    driver.implicitly_wait(15)
     assert driver.current_url == 'http://localhost:5000/'
     done_text = driver.find_element_by_xpath("//*[@id='Done Table']/tbody/tr[1]/td[1]").text
     assert done_text == "test item in e2e testing"
     # Re-mark as todo
     mark_as_todo_link = driver.find_element_by_link_text('To Do')
     mark_as_todo_link.click()
-    driver.implicitly_wait(15)
     assert driver.current_url == 'http://localhost:5000/'
     todo_text = driver.find_element_by_xpath("//*[@id='Todo Table']/tbody/tr[1]/td[1]").text
     assert todo_text == "test item in e2e testing"
