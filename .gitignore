@@ -118,3 +118,13 @@ env/
 
 ### Configuration files ###
 .env
+
+### Vagrant files ###
+.vagrant
+
+
+### TMP ###
+Vagrantfile
+.dockerignore
+Dockerfile
+

@@ -55,3 +55,15 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+## Running the tests
+
+Make sure you have run poetry install. pytest is an included dependency so will get installed. 
+
+The integrations have a dependency on chrome driver being present. 
+
+Navigate to the todo_app directory, i.e. directly above the tests directory. You can now run the tests by executing:
+```bash
+$ poetry run pytest tests/
+```
+
+
