@@ -122,6 +122,3 @@ env/
 ### Vagrant files ###
 .vagrant
 
-### TMP ###
-.dockerignore
-Dockerfile
