@@ -66,4 +66,8 @@ Navigate to the todo_app directory, i.e. directly above the tests directory. You
 $ poetry run pytest tests/
 ```
 
-
+## Using a VM
+You can use Vagrant to run the app. To o so, make sure you have vagrant installed. Then run the following:
+```bash
+$ vagrant up
+```
