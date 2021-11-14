@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9 as base
 
 WORKDIR /app
 
@@ -12,10 +12,12 @@ EXPOSE 5000
 
 COPY todo_app todo_app
 
+FROM base as development
+
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
 
-# build using
-# docker build --tag todo-app .
+FROM base as production 
 
-# run using
-# docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app 
+CMD cd todo_app
+
+ENTRYPOINT ["poetry", "run", "gunicorn", "todo_app.wsgi"]
