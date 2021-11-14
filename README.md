@@ -71,3 +71,14 @@ You can use Vagrant to run the app. To o so, make sure you have vagrant installe
 ```bash
 $ vagrant up
 ```
+
+## Using Docker
+You can use Docker to run the app
+Build an image using the Dockerfile included by running the following command
+```
+docker build --tag todo-app .
+```
+Once you have an image, you can run it in a container using the command
+```
+docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app 
+```
