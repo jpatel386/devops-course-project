@@ -80,7 +80,7 @@ docker build --tag todo-app .
 ```
 Once you have an image, you can run it in a container using the command
 ```
-docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app 
+docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app --mount type=bind,source="($pwd)",target=/app 
 ```
 
 ## TODO
