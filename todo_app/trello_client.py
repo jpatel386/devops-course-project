@@ -168,7 +168,7 @@ class TrelloClient:
         delete_board_url = "https://api.trello.com/1/boards/"+str(id)
         delete_board_params = self.trello_key_params.copy()
         delete_board_resp = self.query_trello("DELETE",delete_board_url, delete_board_params)
-        if not delete_board_resp.not:
+        if not delete_board_resp.ok:
             return render_template('error.html')
         resp_dict = delete_board_resp.json()
 
