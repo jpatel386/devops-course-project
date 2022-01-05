@@ -87,3 +87,6 @@ docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app --mount type=bind,
 
 Document DOCKER in prod/dev envs
 
+## Documentation of the Application
+
+Documentation can be found in the documentation folder at the root level of this repo
