@@ -9,7 +9,7 @@ from todo_app.flask_config import Config
 from selenium import webdriver
 import requests
 from flask import Flask, render_template, request, redirect, url_for
-from selenium.webdriver.firefox.options import Options
+#from selenium.webdriver.firefox.options import Options #Firefox only
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
@@ -42,9 +42,13 @@ def app_with_temp_board():
 
 @pytest.fixture(scope="module")
 def driver():
-    opts = Options()
+    #opts = Options() //Firefox only
+    opts = webdriver.ChromeOptions()
     opts.add_argument('--headless')
-    with webdriver.Firefox(options=opts) as driver:
+    opts.add_argument('--no-sandbox') #Chrome only
+    opts.add_argument('--disable-dev-shm-usage') #Chrome only
+    #with webdriver.Firefox(options=opts) as driver:
+    with webdriver.Chrome(options=opts) as driver:
         #driver.maximize_window()
         yield driver
 
