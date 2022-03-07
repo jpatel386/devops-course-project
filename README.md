@@ -103,3 +103,8 @@ To run the image for e2e tests, execute the following
 ```
 docker run --env-file .env my-test-image todo_app/e2e_tests
 ```
+
+##Updating paths to ignore on github workflows
+If you add files which when committed or pushed do not need to trigger a github action, then add them to the workflow file under the paths_ignore section.
+
+
