@@ -1,6 +1,11 @@
 name: Continuous Integration
 on:
   push:
+    paths-ignore:
+      - 'README.md'
+      - 'notes.txt'
+      - 'documentation/*'
+      - ''
   pull_request:
     branches:
       -  master
