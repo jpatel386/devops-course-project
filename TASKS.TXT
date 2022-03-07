@@ -1,0 +1,10 @@
+Exercise 7
+
+Get tests running outside docker
+
+poetry run pytest - failing on chromium driver
+
+Get tests working in Docker with selenium and chrome
+
+Then move onto part 4 of workshop 7
+
