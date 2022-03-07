@@ -8,3 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: docker build --target test --tag my-test-image .
+    - run: docker run --env-file .env.test my-test-image todo_app/tests
+    - run: docker run --env-file .env my-test-image todo_app/e2e_tests
+
