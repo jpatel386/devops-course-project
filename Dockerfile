@@ -14,6 +14,8 @@ COPY todo_app todo_app
 
 ENV FLASK_APP=todo_app/app
 
+ENV FLASK_ENV=development
+
 FROM base as development
 
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
