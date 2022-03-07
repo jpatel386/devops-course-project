@@ -16,6 +16,8 @@ ENV FLASK_APP=todo_app/app
 
 ENV FLASK_ENV=development
 
+ENV SECRET_KEY=secret-key
+
 FROM base as development
 
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
