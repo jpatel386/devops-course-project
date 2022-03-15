@@ -1,0 +1,21 @@
+name: Continuous Integration
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'notes.txt'
+      - 'documentation/*'
+  pull_request:
+    branches:
+      -  master
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: docker build --target test --tag my-test-image .
+    - run: docker run --env-file .env.test my-test-image todo_app/tests
+    - run: docker run -e trello_board_id=${{secrets.TRELLO_BOARD_ID}} -e trello_key=${{secrets.TRELLO_KEY}} -e trello_token=${{secrets.TRELLO_TOKEN}}  my-test-image todo_app/e2e_tests
+

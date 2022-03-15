@@ -1,6 +1,7 @@
 {
     "python.testing.pytestArgs": [
-        "todo_app/tests"
+        "todo_app/tests",
+	"todo_app/e2e_tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

@@ -1,0 +1,4 @@
+e2e Tests no longer run locally since I have an M1 mac. Using firefox and both distributions of geckodriver (old and new mac) do not work. 
+
+Until then, sticking with Chrome in docker since firefox needs apk which is for alpine builds and github workflows run on ubunt atm. 
+

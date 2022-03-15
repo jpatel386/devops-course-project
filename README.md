@@ -80,7 +80,7 @@ docker build --tag todo-app .
 ```
 Once you have an image, you can run it in a container using the command
 ```
-docker run -d -p 0.0.0.0:5000:5000 --env-file ./.env todo-app --mount type=bind,source="($pwd)",target=/app 
+docker run -d -p 0.0.0.0:5000:5000 --env-file .env todo-app --mount type=bind,source="($pwd)",target=/app 
 ```
 
 ## TODO
@@ -90,3 +90,22 @@ Document DOCKER in prod/dev envs
 ## Documentation of the Application
 
 Documentation can be found in the documentation folder at the root level of this repo
+
+To build a test image of the docker, run the following to build the image
+```
+docker build --target test --tag my-test-image .
+```
+To run the image for UNIT and INTEGRATION tests, execute the following
+```
+docker run --env-file .env.test my-test-image todo_app/tests
+```
+To run the image for e2e tests, execute the following
+```
+docker run --env-file .env my-test-image todo_app/e2e_tests
+```
+
+##Updating paths to ignore on github workflows
+If you add files which when committed or pushed do not need to trigger a github action, then add them to the workflow file under the paths_ignore section.
+
+##Extra notes
+If you are running this on an M1 Mac, check the notes.txt as it contains useful info about running the app
