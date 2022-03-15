@@ -32,4 +32,4 @@ jobs:
          password: ${{ secrets.DOCKERHUB_TOKEN }}
     -  uses: actions/checkout@v2
     -  run: echo Publishing Artefact
-
+    -  run: docker build --target production --tag jaisalpatel836/todo_app:${{ env.GITHUB_SHA }}
