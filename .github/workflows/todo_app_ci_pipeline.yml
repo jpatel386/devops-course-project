@@ -35,7 +35,6 @@ jobs:
         app_name: ${{ secrets.HEROKU_APP_NAME }} 
         dockerfile: './' # set the path to the folder where the Dockerfile is located
         options: '--target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA"' # Docker Build Options
-    - name: Build and push to DockerHub
     - uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
