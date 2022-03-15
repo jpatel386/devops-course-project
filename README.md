@@ -107,4 +107,5 @@ docker run --env-file .env my-test-image todo_app/e2e_tests
 ##Updating paths to ignore on github workflows
 If you add files which when committed or pushed do not need to trigger a github action, then add them to the workflow file under the paths_ignore section.
 
-
+##Extra notes
+If you are running this on an M1 Mac, check the notes.txt as it contains useful info about running the app
