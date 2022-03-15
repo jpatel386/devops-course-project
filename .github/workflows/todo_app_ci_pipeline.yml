@@ -5,7 +5,6 @@ on:
       - 'README.md'
       - 'notes.txt'
       - 'documentation/*'
-      - ''
   pull_request:
     branches:
       -  master
