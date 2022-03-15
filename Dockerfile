@@ -22,12 +22,6 @@ FROM base as development
 
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
 
-FROM base as production 
-
-ENV FLASK_ENV=production
-
-ENTRYPOINT ["poetry", "run", "gunicorn", "todo_app.app:create_app()"]
-
 FROM base as test
 
 RUN apt-get update -qqy && apt-get install -qqy wget gnupg unzip
@@ -61,3 +55,9 @@ RUN CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-
 #  && rm geckodriver-*.tar.gz
 
 ENTRYPOINT ["poetry" ,"run", "pytest"]
+
+FROM base as production 
+
+ENV FLASK_ENV=production
+
+ENTRYPOINT ["poetry", "run", "gunicorn", "todo_app.app:create_app()"]
