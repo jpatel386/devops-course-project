@@ -6,7 +6,7 @@ RUN pip install poetry
 
 COPY pyproject.toml poetry.lock ./
 
-RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 
 EXPOSE 5000
 
@@ -59,7 +59,5 @@ ENTRYPOINT ["poetry" ,"run", "pytest"]
 FROM base as production 
 
 ENV FLASK_ENV=production
-
-RUN pip install gunicorn
 
 CMD poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:${PORT:-5000}
