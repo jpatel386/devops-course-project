@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build and test
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,3 +19,27 @@ jobs:
     - run: docker run --env-file .env.test my-test-image todo_app/tests
     - run: docker run -e trello_board_id=${{secrets.TRELLO_BOARD_ID}} -e trello_key=${{secrets.TRELLO_KEY}} -e trello_token=${{secrets.TRELLO_TOKEN}}  my-test-image todo_app/e2e_tests
 
+  publish:
+    name: Push Image to DockerHub
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/exercise-8' && github.event_name == 'push'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and push to Heroku
+      id: heroku
+      uses: jctaveras/heroku-deploy@v1.0.0 
+      with:
+        email: ${{ secrets.HEROKU_EMAIL }} 
+        api_key: ${{ secrets.HEROKU_API_KEY }} 
+        app_name: ${{ secrets.HEROKU_APP_NAME }} 
+        dockerfile: './' # set the path to the folder where the Dockerfile is located
+        options: '--target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA"' # current version of action doesn't support this - need to upgrade - only works since prod is last base to build from
+    - uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - run: docker build --target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA" .
+    - run: docker push jaisalpatel836/todo_app --all-tags
+    
+    

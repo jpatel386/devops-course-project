@@ -6,7 +6,7 @@ RUN pip install poetry
 
 COPY pyproject.toml poetry.lock ./
 
-RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 
 EXPOSE 5000
 
@@ -21,12 +21,6 @@ ENV SECRET_KEY=secret-key
 FROM base as development
 
 ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
-
-FROM base as production 
-
-ENV FLASK_ENV=production
-
-ENTRYPOINT ["poetry", "run", "gunicorn", "todo_app.app:create_app()"]
 
 FROM base as test
 
@@ -61,3 +55,9 @@ RUN CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-
 #  && rm geckodriver-*.tar.gz
 
 ENTRYPOINT ["poetry" ,"run", "pytest"]
+
+FROM base as production 
+
+ENV FLASK_ENV=production
+
+CMD poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:${PORT:-5000}

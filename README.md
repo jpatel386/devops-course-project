@@ -82,6 +82,7 @@ Once you have an image, you can run it in a container using the command
 ```
 docker run -d -p 0.0.0.0:5000:5000 --env-file .env todo-app --mount type=bind,source="($pwd)",target=/app 
 ```
+Note this is port 5000 in gunicorn too which is changed from the default of 80
 
 ## TODO
 
@@ -109,3 +110,6 @@ If you add files which when committed or pushed do not need to trigger a github 
 
 ##Extra notes
 If you are running this on an M1 Mac, check the notes.txt as it contains useful info about running the app
+
+
+
