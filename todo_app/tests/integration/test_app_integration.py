@@ -3,19 +3,17 @@ from unittest.mock import patch, Mock
 import dotenv
 from todo_app import app
 import re
+import mongomock
 
 @pytest.fixture 
 def client():
 # Use our test integration config instead of the 'real' version 
     file_path = dotenv.find_dotenv('.env.test')
     dotenv.load_dotenv(file_path, override=True)
-
-# Create the new app. 
-    test_app = app.create_app()
-
-# Use the app to create a test_client that can be used in our tests.
-    with test_app.test_client() as client: 
-        yield client
+    with mongomock.patch(servers=(('fakemongo.com', 27017),)):
+        test_app = app.create_app()
+        with test_app.test_client() as client:
+            yield client
 
 @patch('requests.request')
 def test_index_page(mock_get_requests, client):
