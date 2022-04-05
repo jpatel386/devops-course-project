@@ -1,3 +1,5 @@
+# This is no longer used as our main backend to store lists - We have switched to mongoDb as our main backend for data storage now
+
 import requests
 from flask import Flask, render_template, request, redirect, url_for
 
