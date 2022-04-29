@@ -16,8 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: docker build --target test --tag my-test-image .
-    - run: docker run --env-file .env.test my-test-image todo_app/tests
-    - run: docker run --env mongo_db_connection=${{secrets.MONGO_DB_CONNECTION}} --env mongo_db_name=${{secrets.MONGO_DB_NAME}} my-test-image todo_app/e2e_tests
+    - run: docker run my-test-image todo_app/tests --env-file .env.test
+    - run: docker run my-test-image todo_app/e2e_tests --env mongo_db_connection=${{secrets.MONGO_DB_CONNECTION}} --env mongo_db_name=${{secrets.MONGO_DB_NAME}} 
 
   publish:
     name: Push Image to DockerHub
