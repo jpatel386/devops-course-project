@@ -32,8 +32,7 @@ class MongoDBClient:
                 '$set': {"status": status}
             }
         )
-        return
-
+        
     def completeItem(self, id):
         self.updateItemStatus(id, "done")
 
@@ -42,4 +41,8 @@ class MongoDBClient:
 
     def markItemInProgress(self, id):
         self.updateItemStatus(id, "doing")
+
+    def dropDbForName(self, name):
+        return
+
     

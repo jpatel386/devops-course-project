@@ -1,5 +1,4 @@
 from todo_app.item import Item
-# from todo_app.trello_client import TrelloClient # As of Module 9, we no longer use Trello as the back-end. Instead we now use MongoDB
 from todo_app.mongo_db_client import MongoDBClient
 from todo_app.view_model import ViewModel
 from flask import Flask, render_template, request, redirect, url_for
@@ -13,7 +12,6 @@ def create_app():
     config = Config()
     app = Flask(__name__)
     app.config.from_object(config)
-    # trello_client = TrelloClient(config.trello_board_id, config.trello_key, config.trello_token) # Deprecated as of Module 9
     mongo_db = MongoDBClient(config.mongo_db_connection, config.mongo_db_name)
 
     @app.route('/')
