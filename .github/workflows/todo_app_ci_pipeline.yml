@@ -14,10 +14,16 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: docker build --target test --tag my-test-image .
-    - run: docker run --env-file .env.test my-test-image todo_app/tests
-    - run: docker run -e mongo_db_connection=${{secrets.MONGO_DB_CONNECTION}} -e mongo_db_name=${{secrets.MONGO_DB_NAME}}  my-test-image todo_app/e2e_tests
+      - uses: actions/checkout@v2
+      - name: Build docker test image
+        run: docker build --target test --tag my-test-image .
+      - name: Run unit and integration tests
+        run: docker run --env-file .env.test my-test-image todo_app/tests
+      - name: Run e2e tests
+        env:
+          mongo_db_connection: "${{secrets.MONGO_DB_CONNECTION}}"
+          mongo_db_name: "${{secrets.MONGO_DB_NAME}}"
+        run: docker run my-test-image todo_app/e2e_tests
 
   publish:
     name: Push Image to DockerHub
