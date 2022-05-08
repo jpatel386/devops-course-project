@@ -23,7 +23,6 @@ class MongoDBClient:
         self.items.insert_one(item_to_add)
     
     def updateItemStatus(self, id, status):
-        print(id)
         self.items.update_one(
             {
                 "_id": ObjectId(id)

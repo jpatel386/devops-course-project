@@ -34,6 +34,7 @@ def app_with_temp_board():
 
     # Drop the test DB
     test_mongo_db = MongoDBClient(config.mongo_db_connection, config.mongo_db_name)
+    test_mongo_db.dropDbForName(config.mongo_db_name)
 
 @pytest.fixture(scope="module")
 def driver():
