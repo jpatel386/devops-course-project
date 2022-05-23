@@ -13,7 +13,9 @@ from selenium.webdriver.firefox.options import Options #Firefox only
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
-    # Create the new board & update the board id environment variable
+    
+    # Disable login for tests
+    os.environ['LOGIN_DISABLED'] = 'True'
 
     file_path = dotenv.find_dotenv('.env')
     dotenv.load_dotenv(file_path, override=True)

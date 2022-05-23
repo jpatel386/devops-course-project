@@ -10,8 +10,10 @@
   <div class="container">
     <h2>Items</h2>
     <br>
+    {% if writer %}
     <a href='/addItem'>Add a new item</a>
     <p></p>
+    {% endif %}
     <div class="row">
       <div class="col-md">
         <table class="table" id="Todo Table">
@@ -22,7 +24,9 @@
           {% for item in view_model.todo_items %}
           <tr>
             <td>{{ item.title }}</td>
+            {% if writer %}
             <td>Mark as <a href="/doing_item/{{ item.id }}">Doing</a> | <a href="/complete_item/{{ item.id }}">Done</a></td>
+            {% endif %}
           </tr>
           {% endfor %}	
         </table>
@@ -36,7 +40,9 @@
           {% for item in view_model.doing_items %}
           <tr>
             <td>{{ item.title }}</td>
+            {% if writer %}
             <td>Mark as <a href="/reopen_item/{{ item.id }}">To Do</a> | <a href="/complete_item/{{ item.id }}">Done</a></td>
+            {% endif %}
           </tr>
           {% endfor %}	
         </table>
@@ -50,7 +56,9 @@
           {% for item in view_model.done_items %}
           <tr>
             <td>{{ item.title }}</td>
+            {% if writer %}
             <td>Mark as <a href="/reopen_item/{{ item.id }}">To Do</a> | <a href="/doing_item/{{ item.id }}">Doing</a></td>
+            {% endif %}
           </tr>
           {% endfor %}	
         </table>
