@@ -1,7 +1,0 @@
-
-
-state not being sent/received properly - how do I prevent state being interfered with when multiple people connect in between auths?  --> Create each new user a separate app?
-
-
-
-when marking as todo - in writer moder - get error
