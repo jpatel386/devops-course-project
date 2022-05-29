@@ -23,13 +23,15 @@ jobs:
         env:
           mongo_db_connection: "${{secrets.MONGO_DB_CONNECTION}}"
           mongo_db_name: "${{secrets.MONGO_DB_NAME}}"
-        run: docker run -e mongo_db_connection -e mongo_db_name my-test-image todo_app/e2e_tests
+          git_client_id: "${{secrets.GIT_CLIENT_ID}}"
+          git_client_secret: "${{secrets.GIT_CLIENT_SECRET}}"
+        run: docker run -e mongo_db_connection -e mongo_db_name -e git_client_id -e git_client_secret my-test-image todo_app/e2e_tests
 
   publish:
     name: Push Image to DockerHub
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/exercise-9' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/exercise-10' && github.event_name == 'push'
     steps:
     - uses: actions/checkout@v2
     - name: Build and push to Heroku
