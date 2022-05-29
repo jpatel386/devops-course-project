@@ -64,7 +64,7 @@ def create_app():
         resp = requests.request("POST",url,headers=headers,params=params)
         if not resp.ok:
             return render_template('unauthorised.html')
-        access_token = json.loads(resp.text)["access_token"]
+        access_token = resp.json()["access_token"]
         headers['Authorization'] = "token " + access_token
         url = "https://api.github.com/user"
         user_resp = requests.request("GET",url,headers=headers,params=params)
