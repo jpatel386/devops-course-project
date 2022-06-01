@@ -70,9 +70,9 @@ def create_app():
         headers['Authorization'] = "token " + access_token
         url = "https://api.github.com/user"
         user_resp = requests.request("GET",url,headers=headers,params=params)
-        if not resp.ok:
+        if not user_resp.ok:
             return render_template('unauthorised.html'), 401
-        user_id = user_resp.text.json()["id"]
+        user_id = json.loads(user_resp.text)["id"]
         user = User(user_id)
         logged_in = flask_login.login_user(user)
         return redirect(url_for('index'))
