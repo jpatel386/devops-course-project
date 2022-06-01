@@ -31,7 +31,7 @@ jobs:
     name: Push Image to DockerHub
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/exercise-10' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/exercise-11' && github.event_name == 'push'
     steps:
     - uses: actions/checkout@v2
     - name: Build and push to Heroku
