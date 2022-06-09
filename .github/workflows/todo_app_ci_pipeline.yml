@@ -31,9 +31,8 @@ jobs:
     name: Push Image to DockerHub
     needs: build
     runs-on: ubuntu-latest
-    steps: 
     if: github.ref == 'refs/heads/exercise-11' && github.event_name == 'push'
-    steps:
+    steps: 
       - uses: actions/checkout@v2
       - uses: docker/login-action@v1
         with:
