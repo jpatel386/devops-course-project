@@ -24,11 +24,6 @@ def create_app():
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    # when user connects - give their cookie a state - a session Variable
-
-    # check the returned state is same as session variable
-
-
     @login_manager.unauthorized_handler
     def unauthenticated():
         state = str(uuid.uuid4())
