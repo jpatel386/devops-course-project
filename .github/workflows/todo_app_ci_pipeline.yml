@@ -31,15 +31,16 @@ jobs:
     name: Push Image to DockerHub
     needs: build
     runs-on: ubuntu-latest
+    steps: 
     if: github.ref == 'refs/heads/exercise-11' && github.event_name == 'push'
     steps:
-    - uses: actions/checkout@v2
-    - uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-      run: docker build --target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA" .
-      run: docker push jaisalpatel836/todo_app --all-tags
-    - name: Reload Azure
-      run: curl -dH -X POST ${{ secrets.AZURE_WEBHOOK }}
+      - uses: actions/checkout@v2
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker build --target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA" .
+        run: docker push jaisalpatel836/todo_app --all-tags
+      - name: Reload Azure
+        run: curl -dH -X POST ${{ secrets.AZURE_WEBHOOK }}
   
