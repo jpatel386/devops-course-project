@@ -45,10 +45,6 @@ jobs:
           creds: '{"clientId":"${{ secrets.TF_VAR_ARM_CLIENT_ID }}","clientSecret":"${{ secrets.TF_VAR_ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TF_VAR_ARM_TENANT_ID }}"}'
       - name: Run terraform
         env: 
-          TF_VAR_ARM_CLIENT_ID: ${{ secrets.TF_VAR_ARM_CLIENT_ID }}
-          TF_VAR_ARM_TENANT_ID: ${{ secrets.TF_VAR_ARM_TENANT_ID }}
-          TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }}
-          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_ARM_CLIENT_SECRET }}
           TF_VAR_git_client_id: ${{ secrets.GIT_CLIENT_ID }}
           TF_VAR_git_client_secret: ${{ secrets.GIT_CLIENT_SECRET }}
         run: |
