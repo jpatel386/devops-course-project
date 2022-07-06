@@ -40,7 +40,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - run: docker build --target production --tag jaisalpatel836/todo_app:latest --tag jaisalpatel836/todo_app:"$GITHUB_SHA" .
       - run: docker push jaisalpatel836/todo_app --all-tags
-      - name: Rerun terraform
+      - uses: Azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.TF_VAR_ARM_CLIENT_ID }}","clientSecret":"${{ secrets.TF_VAR_ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.TF_VAR_ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TF_VAR_ARM_TENANT_ID }}"}'
+      - name: Run terraform
         env: 
           TF_VAR_ARM_CLIENT_ID: ${{ secrets.TF_VAR_ARM_CLIENT_ID }}
           TF_VAR_ARM_TENANT_ID: ${{ secrets.TF_VAR_ARM_TENANT_ID }}
