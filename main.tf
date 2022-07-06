@@ -5,12 +5,24 @@ terraform {
       version = ">= 2.49"
     } 
   }
+  backend "azurerm" {
+        resource_group_name  = "tfstate"
+        storage_account_name = "tfstate13267"
+        container_name       = "tfstate"
+        key                  = "terraform.tfstate"
+    }
 }
 provider "azurerm" {
   features {
 
   }
+  subscription_id   = var.ARM_SUBSCRIPTION_ID
+  tenant_id         = var.ARM_TENANT_ID
+  client_id         = var.ARM_CLIENT_ID
+  client_secret     = var.ARM_CLIENT_SECRET
+
 }
+
 data "azurerm_resource_group" "main" {
   name     = "devops-todo-app"
 }
