@@ -31,8 +31,7 @@ class Config:
         self.LOG_LEVEL = os.getenv('LOG_LEVEL') == 'DEBUG'
         
         self.LOGGLY_TOKEN = os.getenv('LOGGLY_TOKEN')
-        if not self.LOGGLY_TOKEN:
-            raise ValueError("No LOGGLY_TOKEN set for logs")
+        
 
             
 
