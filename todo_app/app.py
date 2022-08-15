@@ -25,7 +25,7 @@ def create_app():
     if app.config['LOGGLY_TOKEN'] is not None:
         handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
         handler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
-    app.logger.addHandler(handler)
+        app.logger.addHandler(handler)
     app.logger.info("Application starting...")
     mongo_db = MongoDBClient(config.mongo_db_connection, config.mongo_db_name)
     # Auth Setup
