@@ -25,6 +25,7 @@ jobs:
           mongo_db_name: "${{secrets.MONGO_DB_NAME}}"
           git_client_id: "${{secrets.GIT_CLIENT_ID}}"
           git_client_secret: "${{secrets.GIT_CLIENT_SECRET}}"
+          LOGGLY_TOKEN: "${{secrets.LOGGLY_TOKEN}}"
         run: docker run -e mongo_db_connection -e mongo_db_name -e git_client_id -e git_client_secret my-test-image todo_app/e2e_tests
 
   publish:

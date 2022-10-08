@@ -16,6 +16,7 @@ pymongo = {extras = ["srv"], version = "^4.0.2"}
 mongomock = "^4.0.0"
 oauthlib = "^3.2.0"
 Flask-Login = "^0.6.1"
+loggly-python-handler = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 

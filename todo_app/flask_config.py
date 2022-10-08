@@ -28,5 +28,10 @@ class Config:
         # Not needed unless doing tests and so we don't need to verify if there is a value or not
         self.LOGIN_DISABLED = os.getenv('LOGIN_DISABLED') == 'True'
 
+        self.LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
+        
+        self.LOGGLY_TOKEN = os.getenv('LOGGLY_TOKEN')
+        
+
             
 
